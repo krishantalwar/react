@@ -13,6 +13,7 @@ import Navigation from './routes/navigation/navigation.component';
 // import Master from './layouts/master'
 
 import Home from './pages/home/home';
+import Npi from './pages/npi/npiform';
 
 function App() {
 
@@ -25,7 +26,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Navigation />}>
-        <Route index element={<Home />} />
+        <Route index element={<Npi />} />
+         {/* <Route index element={<Home />} /> */}
       </Route>
     </Routes>
     

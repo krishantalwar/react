@@ -16,11 +16,12 @@ import Copyright from '../../layouts/copyright';
 // import {apiSlice} from '../../apis/api';
 // import { useDispatch } from 'react-redux';
 
-import {useLoginMutation} from '../../features/auth/authService';
+import { useLoginMutation } from '../../features/auth/authService';
 
 // import { useDispatch } from 'react-redux';
 
 // import { setAuth } from '../../features/auth/authSlice';
+// import { GoogleLogin } from '@react-oauth/google';
 
 const defaultFormFields = {
   email: '',
@@ -35,11 +36,11 @@ export default function SignIn() {
   //       isSuccess,
   //       error}] = useLoginMutation()
 
-    const [Login, { isLoading}] = useLoginMutation()
+  const [Login, { isLoading }] = useLoginMutation()
 
   const [formFields, setFormFields] = React.useState(defaultFormFields);
   const { email, password } = formFields;
-// const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -55,11 +56,12 @@ export default function SignIn() {
     });
     try {
       // let asd =
-        await Login({
-          email: data.get('email'),
-      password: data.get('password') }).unwrap()
+      await Login({
+        email: data.get('email'),
+        password: data.get('password')
+      }).unwrap()
       // dispatch(setAuth({ isAuthenticated: true, user: { 'asdas': 'das' } }));
-      
+
 
       // console.log("asd",asd);
       // console.log(isLoading)
@@ -80,7 +82,14 @@ export default function SignIn() {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  
+
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
   return (
     <React.Fragment>
       <Container component="main" maxWidth="xs">
@@ -99,7 +108,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit}  sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -137,6 +146,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
