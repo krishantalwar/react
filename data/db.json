@@ -891,6 +891,113 @@
         "coffee": 0
       },
       "id": 103
+    },
+    {
+      "email": "sdfasd@asdasd.com",
+      "password": "sdsfas",
+      "id": 104
+    },
+    {
+      "email": "sdasd@dsfdf.com",
+      "password": "dasd",
+      "id": 105
+    },
+    {
+      "email": "asdasd@dsfsd.com",
+      "password": "asdasd",
+      "id": 106
+    },
+    {
+      "email": "asdasd@sdfdsa.com",
+      "password": "sdas",
+      "id": 107
+    },
+    {
+      "email": "asd@ds.com",
+      "password": "asdas",
+      "id": 108
+    },
+    {
+      "email": "casdas@dsfsf.com",
+      "password": "sdasd",
+      "id": 109
+    },
+    {
+      "email": "sdfaf@sdfsc.com",
+      "password": "sadasd",
+      "id": 110
+    },
+    {
+      "email": "asdas@sdfsd.com",
+      "password": "asdasd",
+      "id": 111
+    },
+    {
+      "email": "asdas@sdfd.com",
+      "password": "dsdsdf",
+      "id": 112
+    },
+    {
+      "email": "sdasdasc@dsfds.com",
+      "password": "asdasd",
+      "id": 113
+    },
+    {
+      "email": "asdas@sdfs.com",
+      "password": "sada",
+      "id": 114
+    },
+    {
+      "email": "asdas@sdfsd.com",
+      "password": "asdds",
+      "id": 115
+    },
+    {
+      "email": "asda@sdfs.com",
+      "password": "asdad",
+      "id": 116
+    },
+    {
+      "email": "sadasd@sdfs.com",
+      "password": "asdasd",
+      "id": 117
+    },
+    {
+      "email": "asd@sdf.com",
+      "password": "asds",
+      "id": 118
+    },
+    {
+      "email": "asdasd@sdf.com",
+      "password": "asdas",
+      "id": 119
+    },
+    {
+      "email": "asda@sdf.com",
+      "password": "sdasd",
+      "id": 120
+    },
+    {
+      "email": "asdsd@sdfasd.com",
+      "password": "sadasd",
+      "id": 121
+    },
+    {
+      "email": "asdasd@sdfsad.com",
+      "password": "sdasd",
+      "id": 122
+    },
+    {
+      "email": "asd@asdas.com",
+      "password": "asdasd",
+      "id": 123
     }
-  ]
+  ],
+  "auth": {
+    "email": "asdads@sdf.com",
+    "password": "asda"
+  },
+  "logout":{
+        "password": "asda"
+  }
 }

@@ -12,9 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from '../../layouts/copyright';
-import {useGetPostsQuery} from '../../store/user/user.reducer';
-import {apiSlice} from '../../apis/api';
-import { useDispatch } from 'react-redux';
+// import {useGetPostsQuery} from '../../store/user/user.reducer';
+// import {apiSlice} from '../../apis/api';
+// import { useDispatch } from 'react-redux';
+
+import {useLoginMutation} from '../../features/auth/authService';
+
+// import { useDispatch } from 'react-redux';
+
+// import { setAuth } from '../../features/auth/authSlice';
 
 const defaultFormFields = {
   email: '',
@@ -24,54 +30,57 @@ const defaultFormFields = {
 
 export default function SignIn() {
 
+  // const [Login, { currentData,isUninitialized,isFetching,isLoading
+  //     , isError,
+  //       isSuccess,
+  //       error}] = useLoginMutation()
+
+    const [Login, { isLoading}] = useLoginMutation()
+
   const [formFields, setFormFields] = React.useState(defaultFormFields);
   const { email, password } = formFields;
-
+// const dispatch = useDispatch();
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    try {
+      // let asd =
+        await Login({
+          email: data.get('email'),
+      password: data.get('password') }).unwrap()
+      // dispatch(setAuth({ isAuthenticated: true, user: { 'asdas': 'das' } }));
+      
+
+      // console.log("asd",asd);
+      // console.log(isLoading)
+      // console.log(isError)
+      // console.log(isSuccess)
+      // console.log(error)
+      resetFormFields()
+      // Redirect to the dashboard page after successful login
+      // history.push('/dashboard');
+    } catch (error) {
+      // Handle login error
+      console.error('Login error:', error);
+    }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    isError,
-    error
-} = useGetPostsQuery('getPosts');
-
-let content;
-if (isLoading) {
-    content = <p>"Loading..."</p>;
-} else if (isSuccess) {
-    console.log(data);
-    content = <p>dddd</p>
-} else if (isError) {
-    content = <p>{error}</p>;
-}
-const dispatch = useDispatch();
-React.useEffect(() => {
-    // console.log(apiSlice.endpoints);
-  // console.log('Actions dispatched:', apiSlice.endpoints.getPosts.select(data));
-  dispatch({ type: 'useGetPostsQuery' });
-}, [dispatch]);
-
+  
   return (
     <React.Fragment>
       <Container component="main" maxWidth="xs">

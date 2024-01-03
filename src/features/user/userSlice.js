@@ -2,7 +2,7 @@
 
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { apiSlice } from "../../apis/api";
+import { apiSlice } from "../api/api";
 
 
 const INITIAL_STATE = {
@@ -55,3 +55,23 @@ export const {
 
 
 // https://redux-toolkit.js.org/usage/usage-guide#using-selectors-with-createentityadapter
+
+
+
+// // userSlice.js
+// import { createSlice } from '@reduxjs/toolkit';
+
+// const userSlice = createSlice({
+//   name: 'user',
+//   initialState: { role: null },
+//   reducers: {
+//     setRole: (state, action) => {
+//       state.role = action.payload;
+//     },
+//   },
+// });
+
+// export const { setRole } = userSlice.actions;
+// export const selectUser = (state) => state.user;
+
+// export default userSlice.reducer;

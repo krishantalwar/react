@@ -13,6 +13,7 @@ import Navigation from './routes/navigation/navigation.component';
 // import Master from './layouts/master'
 
 import Home from './pages/home/home';
+
 function App() {
 
   // const dispatch = useDispatch();
@@ -25,12 +26,12 @@ function App() {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
-        {/* <Route path='shop/*' element={<Shop />} /> */}
-        {/* <Route path='auth' element={<Authentication />} /> */}
-        {/* <Route path='checkout' element={<Checkout />} /> */}
       </Route>
     </Routes>
+    
   );
 }
+
+
 
 export default App;
