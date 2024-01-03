@@ -16,9 +16,9 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <Link to={'home'} unstable_viewTransition>
+      {/* <Link to={'home'} unstable_viewTransition>
         Click me
-      </Link>
+      </Link> */}
       <ListItemText primary="Dashboard" />
     </ListItemButton>
     <ListItemButton>
