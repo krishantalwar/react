@@ -16,12 +16,12 @@ import Copyright from '../../layouts/copyright';
 // import {apiSlice} from '../../apis/api';
 // import { useDispatch } from 'react-redux';
 
-import { useLoginMutation } from '../../features/auth/authService';
+import { useLoginEmailMutation, useLoginGoogleMutation } from '../../features/auth/authService';
 
 // import { useDispatch } from 'react-redux';
 
 // import { setAuth } from '../../features/auth/authSlice';
-// import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 const defaultFormFields = {
   email: '',
@@ -36,7 +36,8 @@ export default function SignIn() {
   //       isSuccess,
   //       error}] = useLoginMutation()
 
-  const [Login, { isLoading }] = useLoginMutation()
+  const [LoginEmail, { isLoading }] = useLoginEmailMutation();
+  const [LoginGoogle, { isLoadings }] = useLoginGoogleMutation();
 
   const [formFields, setFormFields] = React.useState(defaultFormFields);
   const { email, password } = formFields;
@@ -56,7 +57,7 @@ export default function SignIn() {
     });
     try {
       // let asd =
-      await Login({
+      await LoginEmail({
         email: data.get('email'),
         password: data.get('password')
       }).unwrap()
@@ -83,8 +84,12 @@ export default function SignIn() {
   };
 
 
-  const responseMessage = (response) => {
-    console.log(response);
+  const responseMessage = async (response) => {
+    // console.log(response);
+
+    // console.log(response.clientId);
+
+    await LoginGoogle(response).unwrap()
   };
   const errorMessage = (error) => {
     console.log(error);
@@ -146,7 +151,12 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-
+            <GoogleLogin
+              onSuccess={responseMessage}
+              onError={errorMessage}
+              // auto_select
+              useOneTap
+            />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

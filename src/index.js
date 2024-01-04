@@ -8,16 +8,17 @@ import { store, persistor } from "./app/store";
 import './index.css';
 import App from './App';
 
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
+<GoogleOAuthProvider clientId="952890474851-lg74nckl50ds3u8rb5ifuce3matsu2cb.apps.googleusercontent.com">
+   
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-
+  
           <BrowserRouter>
             <App />
           </BrowserRouter>
@@ -25,7 +26,8 @@ root.render(
         </PersistGate>
       </Provider>
     </React.StrictMode>
-
+</GoogleOAuthProvider>
+   
 );
 
 // If you want to start measuring performance in your app, pass a function
