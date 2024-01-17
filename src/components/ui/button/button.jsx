@@ -16,7 +16,7 @@ import React from 'react';
 
 // };
 
-function button({
+function Buttons({
   children,
   type = "button",
   // bgColor = "bg-blue-600",
@@ -35,4 +35,4 @@ function button({
   );
 }
 
-export default React.forwardRef(button)
+export default React.forwardRef(Buttons)

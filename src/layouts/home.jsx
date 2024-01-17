@@ -1,4 +1,4 @@
-import React,{Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -15,9 +15,30 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './navbar';
 
 import Copyright from './copyright';
+import MuiAppBar from '@mui/material/AppBar';
+
+import Grid from '@mui/material/Grid';
 
 const drawerWidth = 240;
 
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -45,19 +66,44 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Home() {
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-      setOpen(!open);
-    };
 
-    return(
-        <Fragment>
-        <Box sx={{ display: 'flex' }}>
+export default function Home() {
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const show = Boolean(anchorEl);
+  const id = open ? 'simple-popper' : undefined;
+
+  return (
+    <Fragment>
+      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Navbar toggleDrawer={toggleDrawer} open={open} drawerWidth={drawerWidth}/>
-       
-        <Drawer variant="permanent" open={open}>
+        <Navbar id={id} handleClic={handleClick}
+          handleOpenUserMenu={handleOpenUserMenu} anchorElUser={anchorElUser}
+          AppBar={AppBar} toggleDrawer={toggleDrawer} open={open} drawerWidth={drawerWidth}
+          handleCloseUserMenu={handleCloseUserMenu}
+        />
+
+        <Drawer id="Dashnav" variant="permanent" open={open} sx={{ border: "none" }}>
+
           <Toolbar
             sx={{
               display: 'flex',
@@ -71,13 +117,14 @@ export default function Home() {
             </IconButton>
           </Toolbar>
           <Divider />
-          
+
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
         </Drawer>
+
         <Box
           component="main"
           sx={{
@@ -90,16 +137,18 @@ export default function Home() {
             overflow: 'auto',
           }}
         >
-
-
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Outlet/>
+            <Grid container spacing={3}>
+              <Outlet />
+            </Grid>
           </Container>
-          
-          <Copyright/>
+
+          <Copyright sx={{ pt: 4 }} />
         </Box>
+
+
       </Box>
-      </Fragment>
-    );
+    </Fragment >
+  );
 
 }

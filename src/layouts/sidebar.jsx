@@ -12,39 +12,16 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from '@mui/material/Link';
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
+    <ListItemButton sx={{ margin: "5px 7px", borderRadius: "7px", }}>
+      <ListItemIcon sx={{ color: "#364152" }}>
         <DashboardIcon />
-      </ListItemIcon>
+      </ListItemIcon  >
       {/* <Link to={'home'} unstable_viewTransition>
         Click me
       </Link> */}
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+
   </React.Fragment>
 );
 
@@ -53,23 +30,12 @@ export const secondaryListItems = (
     <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
+    <ListItemButton sx={{ margin: "5px 7px", borderRadius: "7px", }}>
+      <ListItemIcon sx={{ color: "#364152" }}>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
+
   </React.Fragment>
 );

@@ -23,23 +23,23 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: credentials
             }),
-            onSuccess: (data, variables, api, store) => {
-                console.log("ddd");
-                //     console.log(data)
-                //     console.log(variables)
-                //     console.log(api)
-                //     console.log(store)
-                //     // Assuming the server response contains user information
-                //     const user = data.user;
-                //     // dispatch(setAuth({ isAuthenticated: true, user: user }));
-                //     // Update the React Query cache directly
-                //     store.dispatch(setAuth({ isAuthenticated: true, user: user }));
+            // onSuccess: (data, variables, api, store) => {
+            //     console.log("ddd");
+            //     //     console.log(data)
+            //     //     console.log(variables)
+            //     //     console.log(api)
+            //     //     console.log(store)
+            //     //     // Assuming the server response contains user information
+            //     //     const user = data.user;
+            //     //     // dispatch(setAuth({ isAuthenticated: true, user: user }));
+            //     //     // Update the React Query cache directly
+            //     //     store.dispatch(setAuth({ isAuthenticated: true, user: user }));
 
-                //          store.dispatch(authApi.util.updateQueryData('me', null, (draft) => {
-                //   draft.entities = [];
-                // }));
+            //     //          store.dispatch(authApi.util.updateQueryData('me', null, (draft) => {
+            //     //   draft.entities = [];
+            //     // }));
 
-            },
+            // },
             transformResponse: responseData => {
                 console.log(responseData)
                 // setAuth("asdsa",{ isAuthenticated: true, user: responseData });
@@ -52,12 +52,12 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                 ))
 
             ],
-            onError: (error, _, api) => {
-                console.error('Login Error:', error);
-            },
-            onSettled: (result, error, variables) => {
-                console.log('Mutation Settled:', result, error, variables);
-            },
+            // onError: (error, _, api) => {
+            //     console.error('Login Error:', error);
+            // },
+            // onSettled: (result, error, variables) => {
+            //     console.log('Mutation Settled:', result, error, variables);
+            // },
             async onQueryStarted(args, { dispatch, getState, queryFulfilled, requestId, extra, getCacheEntry }) {
                 console.log(args);
                 // console.log(await getState());
@@ -69,7 +69,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
                     dispatch(setAuth(data));
                 } catch (error) {
-
+                    console.log("error", error)
                 }
             },
         }),

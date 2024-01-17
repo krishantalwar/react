@@ -2,7 +2,7 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -12,76 +12,116 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from '../../layouts/copyright';
-// import {useGetPostsQuery} from '../../store/user/user.reducer';
-// import {apiSlice} from '../../apis/api';
-// import { useDispatch } from 'react-redux';
 
-import { useLoginEmailMutation, useLoginGoogleMutation } from '../../features/auth/authService';
+import {
+  useLoginEmailMutation,
+  // useLoginGoogleMutation
+} from '../../features/auth/authService';
+
+// import Input  from '../../components/ui/forminputs/input';
+import Input from '../../components/ui/forminputs/input';
 
 // import { useDispatch } from 'react-redux';
 
 // import { setAuth } from '../../features/auth/authSlice';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 
-const defaultFormFields = {
-  email: '',
-  password: '',
-};
+import { useForm, Controller } from 'react-hook-form';
+
+
+
+
+// const defaultFormFields = {
+//   email: '',
+//   password: '',
+// };
 
 
 export default function SignIn() {
-
+  const { handleSubmit, control,
+    // errors,
+    // getValues, getFieldState, 
+    formState
+    // reset, watch,
+  } = useForm(
+    {
+      mode: 'onChange',
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+    }
+  );
+  // console.log(errors)
+  // console.log(formState);
   // const [Login, { currentData,isUninitialized,isFetching,isLoading
   //     , isError,
   //       isSuccess,
   //       error}] = useLoginMutation()
 
-  const [LoginEmail, { isLoading }] = useLoginEmailMutation();
-  const [LoginGoogle, { isLoadings }] = useLoginGoogleMutation();
+  const [LoginEmail, {
+    // currentData, 
+    // isFetching,
+    isLoading,
+    // isSuccess, isError,
+    // error,
+    // status
+  }] = useLoginEmailMutation();
+  // const [LoginGoogle, { isLoadings }] = useLoginGoogleMutation();
 
-  const [formFields, setFormFields] = React.useState(defaultFormFields);
-  const { email, password } = formFields;
+  // const [APIError, setAPIError] = React.useState('');
+  // const { email, password } = formFields;
+
   // const dispatch = useDispatch();
   const resetFormFields = () => {
-    setFormFields(defaultFormFields);
+    // setFormFields(defaultFormFields);
   };
 
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const onSubmit = async (data) => {
+    // event.preventDefault();
+    // console.log(data)
+    // const data = new FormData(event.currentTarget);
     try {
-      // let asd =
-      await LoginEmail({
-        email: data.get('email'),
-        password: data.get('password')
-      }).unwrap()
+      // console.log(isFetching);
+      // console.log(status);
+      console.log(isLoading);
+      // console.log(isSuccess);
+      // console.log(isError);
+      // console.log(error);
+      console.log(!isLoading);
+      if (!isLoading) {
+        await LoginEmail({
+          email: data.email,
+          password: data.password
+        }).unwrap()
+      }
+
       // dispatch(setAuth({ isAuthenticated: true, user: { 'asdas': 'das' } }));
 
-
-      // console.log("asd",asd);
-      // console.log(isLoading)
-      // console.log(isError)
-      // console.log(isSuccess)
-      // console.log(error)
-      resetFormFields()
+      // resetFormFields()
       // Redirect to the dashboard page after successful login
       // history.push('/dashboard');
     } catch (error) {
+      // console.error('Login error:');
+      // console.log(isFetching);
+      // console.log(status);
+      // console.log(isLoading);
+      // console.log(isSuccess);
+      // console.log(isError);
+      // console.log(error);
+      // console.log(!isLoading);
       // Handle login error
+      // setAPIError(error.data)
       console.error('Login error:', error);
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value });
-  };
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormFields({ ...formFields, [name]: value });
+  // };
 
 
   const responseMessage = async (response) => {
@@ -89,11 +129,30 @@ export default function SignIn() {
 
     // console.log(response.clientId);
 
-    await LoginGoogle(response).unwrap()
+    // await LoginGoogle(response).unwrap()
   };
   const errorMessage = (error) => {
     console.log(error);
   };
+
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+    onError: Error => console.log(Error),
+    flow: 'auth-code'
+  });
+
+  const useGoogleOneTapLogisn = useGoogleOneTapLogin({
+    onSuccess: (credentialResponse) => {
+      console.log('One Tap login successful', credentialResponse);
+      // Handle the successful login here
+    },
+    onError: () => {
+      console.error('One Tap login failed');
+      // Handle login errors here
+    },
+    // Additional configuration options can be provided here
+    // auto_select: true, // Automatically prompt the user if they have a single session
+  });
 
   return (
     <React.Fragment>
@@ -113,32 +172,59 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
+
+
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+
+            <Controller
               name="email"
-              type="email"
-              autoComplete="email"
-              onChange={handleChange}
-              value={email}
-              autoFocus
+              control={control}
+              rules={{ required: 'Email is required', pattern: /^\S+@\S+$/i }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  margin="normal"
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  type="email"
+                  autoComplete="email"
+                  autoFocus
+                  formcontrolpops={{
+                    "fullWidth": true,
+                    "variant": "standard",
+                  }}
+                  error={Boolean(formState?.errors?.email)}
+                  helperText={formState?.errors?.email?.message}
+                />
+              )}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+
+            <Controller
               name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleChange}
-              value={password}
-              autoComplete="current-password"
+              control={control}
+              rules={{ required: 'Password is required', minLength: 8 }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  margin="normal"
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  formcontrolpops={{
+                    "fullWidth": true,
+                    "variant": "standard",
+                  }}
+                  error={Boolean(formState?.errors?.password)}
+                  helperText={formState?.errors?.password?.message}
+                />
+              )}
             />
+
+
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -151,12 +237,17 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <GoogleLogin
-              onSuccess={responseMessage}
-              onError={errorMessage}
-              // auto_select
-              useOneTap
-            />
+
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mb: 2, background: '#4D82E5', py: '10px', textTransform: 'none' }}
+              onClick={() => login()}
+            >
+              Sign in with Google
+            </Button>
+            {useGoogleOneTapLogisn}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

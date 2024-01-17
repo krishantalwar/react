@@ -4,6 +4,7 @@ import Login from '../pages/login/login';
 import Home from './home';
 import { selectCurrentUser } from "../features/auth/authSelector";
 import { useSelector } from "react-redux";
+import './layout.css'
 // import { Outlet } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 

@@ -27,6 +27,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Npi />} />
+        
          {/* <Route index element={<Home />} /> */}
       </Route>
     </Routes>

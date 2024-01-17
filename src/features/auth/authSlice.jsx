@@ -6,17 +6,17 @@ const authSlice = createSlice({
   initialState: { isAuthenticated: false, user: null },
   reducers: {
     setAuth: (state, action) => {
-      console.log(state)
-      console.log(action)
+      // console.log(state)
+      // console.log(action)
       state.isAuthenticated = action.payload.isAuthenticated;
       state.user = action.payload.user;
-            state.isAuthenticated = true;
+      state.isAuthenticated = true;
       state.user = [];
     },
-     getAuth: (state, action) => {
+    getAuth: (state, action) => {
       console.log(state)
       console.log(action)
-       return state;
+      return state;
     },
   },
 });
